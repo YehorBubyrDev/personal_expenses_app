@@ -14,13 +14,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Peronal Expenses',
       theme: ThemeData(
-          primarySwatch: Colors.red,
-          fontFamily: 'Quicks',
-          appBarTheme: const AppBarTheme(
-              titleTextStyle: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold))),
+        primarySwatch: Colors.green,
+        fontFamily: 'Quicks',
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
       home: const MyHomePage(),
     );
   }
