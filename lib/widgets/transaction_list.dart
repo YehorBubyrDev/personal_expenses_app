@@ -16,49 +16,46 @@ class TransactionList extends StatelessWidget {
       color: Colors.black12,
       child: ListView.builder(
         itemBuilder: (ctx, index) {
-          return Container(
-            margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            child: Card(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        userTransactions[index].title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        DateFormat().format(userTransactions[index].date),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black38,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(6),
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      '-\₴${userTransactions[index].amount.toStringAsFixed(2)}',
+          return  Card(
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      userTransactions[index].title,
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 16,
+                        fontSize: 14,
                         color: Colors.black,
                       ),
                     ),
+                    Text(
+                      DateFormat().format(userTransactions[index].date),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black38,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    '-${userTransactions[index].amount.toStringAsFixed(2)} ₴',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: Colors.red,
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

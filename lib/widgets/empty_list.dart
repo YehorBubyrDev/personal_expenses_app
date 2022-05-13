@@ -11,13 +11,22 @@ class Empty extends StatelessWidget {
       color: Colors.black12,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const <Widget>[
-          Text(
-            'Nothing here yet..',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.black38,
-            ),
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const <Widget>[
+              Text(
+                'Nothing here yet..',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.black38,
+                ),
+              ),
+              Icon(
+                Icons.money_off,
+                color: Colors.black38,
+              ),
+            ],
           ),
         ],
       ),
