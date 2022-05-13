@@ -14,17 +14,27 @@ class Empty extends StatelessWidget {
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-              Text(
-                'Nothing here yet..',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.black38,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                child: const Text(
+                  'No transaction added yet...',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black54,
+                  ),
                 ),
               ),
-              Icon(
-                Icons.account_balance_wallet_outlined,
-                color: Colors.black38,
+              const SizedBox(
+                width: 5,
+              ),
+              Container(
+                height: 50,
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Image.asset(
+                  'assets/images/waiting.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             ],
           ),

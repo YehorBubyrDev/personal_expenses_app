@@ -11,56 +11,58 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return userTransactions.isEmpty ? const Empty() : Container(
-      height: 500,
-      color: Colors.black12,
-      child: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return  Card(
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      userTransactions[index].title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: Colors.black,
+    return userTransactions.isEmpty
+        ? const Empty()
+        : Container(
+            height: 500,
+            color: Colors.black12,
+            child: ListView.builder(
+              itemBuilder: (ctx, index) {
+                return Card(
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            userTransactions[index].title,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Text(
+                            DateFormat().format(userTransactions[index].date),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black38,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      DateFormat().format(userTransactions[index].date),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black38,
+                      Container(
+                        margin: const EdgeInsets.all(6),
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          '-${userTransactions[index].amount.toStringAsFixed(2)}₴',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.red,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.all(6),
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    '-${userTransactions[index].amount.toStringAsFixed(2)} ₴',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Colors.red,
-                    ),
+                    ],
                   ),
-                ),
-              ],
+                );
+              },
+              itemCount: userTransactions.length,
             ),
           );
-        },
-        itemCount: userTransactions.length,
-      ),
-    );
   }
 }
