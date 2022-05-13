@@ -23,7 +23,7 @@ class Empty extends StatelessWidget {
                 ),
               ),
               Icon(
-                Icons.money_off,
+                Icons.account_balance_wallet_outlined,
                 color: Colors.black38,
               ),
             ],
