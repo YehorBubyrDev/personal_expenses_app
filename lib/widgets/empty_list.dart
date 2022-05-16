@@ -8,7 +8,6 @@ class Empty extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 500,
-      color: Colors.black12,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
