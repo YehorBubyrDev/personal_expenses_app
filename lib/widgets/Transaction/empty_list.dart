@@ -5,7 +5,7 @@ class Empty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 500,
       child: Column(
@@ -15,13 +15,11 @@ class Empty extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Container(
-                child: const Text(
-                  'No transaction added yet...',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.black54,
-                  ),
+              const Text(
+                'No transaction added yet...',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.black54,
                 ),
               ),
               const SizedBox(
