@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // MY FILES ---------------------
-import '../models/transaction.dart';
+import 'package:personal_expenses_app/models/transaction.dart';
 import './chart_bar.dart';
 
 class ExpensesChart extends StatelessWidget {
@@ -24,15 +24,12 @@ class ExpensesChart extends StatelessWidget {
           }
         }
 
-        // print(DateFormat.E().format(weekDay));
-        // print(totalSum.toStringAsFixed(0));
-
         return {
           'day': DateFormat.E().format(weekDay),
           'amount': totalSum,
         };
       },
-    );
+    ).reversed.toList();
   }
 
   double get totalSpending => groupedTransactionValue.fold(0.0, (sum, item) {

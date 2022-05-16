@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 // MY FILES ---------------------
 import './models/transaction.dart';
-import './widgets/transaction_list.dart';
-import './widgets/new_transaction.dart';
-import './widgets/chart.dart';
+import './widgets/Transaction/transaction_list.dart';
+import './widgets/Transaction/new_transaction.dart';
+import './widgets/Chart/chart.dart';
 
 void main() => runApp(const MyApp());
 
