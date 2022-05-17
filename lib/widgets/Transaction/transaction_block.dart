@@ -5,62 +5,51 @@ import 'package:personal_expenses_app/models/transaction.dart';
 class TransactionBlock extends StatelessWidget {
   final List<Transaction> userTransactions;
   final int txID;
+  final Function deleteTx;
 
   const TransactionBlock(
     this.userTransactions,
-    this.txID, {
+    this.txID,
+    this.deleteTx, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Card(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(3),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    userTransactions[txID].title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Text(
-                    DateFormat().format(userTransactions[txID].date),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black38,
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.all(6),
-                padding: const EdgeInsets.all(10),
-                child: FittedBox(
-                  child: Text(
-                    '-${userTransactions[txID].amount.toStringAsFixed(2)}₴',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Colors.red,
-                    ),
-                  ),
+    return Card(
+      elevation: 5,
+      margin: const EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 5,
+      ),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: FittedBox(
+              child: Text(
+                '\₴${userTransactions[txID].amount}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
+            ),
           ),
+        ),
+        title: Text(
+          userTransactions[txID].title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        subtitle: Text(
+          DateFormat.yMMMd().format(userTransactions[txID].date),
+        ),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete_outline_outlined),
+          color: Theme.of(context).errorColor,
+          onPressed: () => deleteTx(userTransactions[txID].id),
         ),
       ),
     );
