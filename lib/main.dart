@@ -36,7 +36,80 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [];
+  final List<Transaction> _userTransactions = [
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: DateTime.now().toString(),
+    //   title: 'Water',
+    //   amount: 20.90,
+    //   date: DateTime.now(),
+    // ),
+  ];
 
   List<Transaction> get _recentTransaction {
     return _userTransactions.where((tx) {
@@ -81,27 +154,41 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // final curScaleFactor = MediaQuery.of(context).textScaleFactor; This is expamle how to manage with the text size
+    final appBar = AppBar(
+      title: const Text('Personal Expenses'),
+      backgroundColor: Colors.lightGreen,
+      actions: <Widget>[
+        IconButton(
+            onPressed: () => _startAddNewTransaction(context),
+            icon: const Icon(
+              Icons.add,
+              size: 30,
+              color: Colors.white,
+            ))
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Personal Expenses'),
-        backgroundColor: Colors.lightGreen,
-        actions: <Widget>[
-          IconButton(
-              onPressed: () => _startAddNewTransaction(context),
-              icon: const Icon(
-                Icons.add,
-                size: 30,
-                color: Colors.white,
-              ))
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ExpensesChart(_recentTransaction),
-            TransactionList(_userTransactions, _deleteTx),
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.3,
+              child: ExpensesChart(_recentTransaction),
+            ),
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.7,
+              child: TransactionList(_userTransactions, _deleteTx),
+            ),
           ],
         ),
       ),

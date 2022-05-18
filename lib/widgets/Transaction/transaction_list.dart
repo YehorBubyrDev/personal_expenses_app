@@ -16,7 +16,6 @@ class TransactionList extends StatelessWidget {
     return userTransactions.isEmpty
         ? const Empty()
         : Container(
-            height: 660,
             color: Colors.black12,
             child: ListView.builder(
               itemBuilder: (ctx, index) {

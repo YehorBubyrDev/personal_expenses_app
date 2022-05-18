@@ -7,7 +7,7 @@ class Empty extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 500,
+      height: MediaQuery.of(context).size.height * 0.6,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
