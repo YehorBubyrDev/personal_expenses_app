@@ -5,6 +5,7 @@ class Empty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.6,
@@ -15,11 +16,13 @@ class Empty extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              const Text(
-                'No transaction added yet...',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.black54,
+              FittedBox(
+                child: Text(
+                  'No transaction added yet...',
+                  style: TextStyle(
+                    fontSize: 20 * curScaleFactor,
+                    color: Colors.black54,
+                  ),
                 ),
               ),
               const SizedBox(
