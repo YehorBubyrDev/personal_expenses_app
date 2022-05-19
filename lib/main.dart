@@ -158,9 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final curScaleFactor = MediaQuery.of(context).textScaleFactor; This is expamle how to manage with the text size
+    final mediaQuery = MediaQuery.of(context);
     final isLandscapeMode =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+        mediaQuery.orientation == Orientation.landscape;
     final appBar = AppBar(
       title: const Text('Personal Expenses'),
       backgroundColor: Colors.lightGreen,
@@ -175,9 +175,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
     final txListWidget = SizedBox(
-      height: (MediaQuery.of(context).size.height -
+      height: (mediaQuery.size.height -
               appBar.preferredSize.height -
-              MediaQuery.of(context).padding.top) *
+              mediaQuery.padding.top) *
           0.7,
       child: TransactionList(_userTransactions, _deleteTx),
     );
@@ -205,9 +205,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (!isLandscapeMode)
               SizedBox(
-                height: (MediaQuery.of(context).size.height -
+                height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
+                        mediaQuery.padding.top) *
                     0.3,
                 child: ExpensesChart(_recentTransaction),
               ),
@@ -215,9 +215,9 @@ class _MyHomePageState extends State<MyHomePage> {
             if (isLandscapeMode)
               _showChart
                   ? SizedBox(
-                      height: (MediaQuery.of(context).size.height -
+                      height: (mediaQuery.size.height -
                               appBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
+                              mediaQuery.padding.top) *
                           0.7,
                       child: ExpensesChart(_recentTransaction),
                     )
