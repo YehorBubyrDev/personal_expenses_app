@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
@@ -101,13 +103,18 @@ class _NewTransactionState extends State<NewTransaction> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: _submitData,
-                style: TextButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 14),
-                ),
-                child: const Text('Add Transaction'),
-              ),
+              Platform.isIOS
+                  ? CupertinoButton.filled(
+                      onPressed: _submitData,
+                      child: const Text('Add Transaction'),
+                    )
+                  : ElevatedButton(
+                      onPressed: _submitData,
+                      style: TextButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 14),
+                      ),
+                      child: const Text('Add Transaction'),
+                    ),
             ],
           ),
         ),
