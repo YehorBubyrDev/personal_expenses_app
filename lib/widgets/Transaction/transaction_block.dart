@@ -46,11 +46,18 @@ class TransactionBlock extends StatelessWidget {
         subtitle: Text(
           DateFormat.yMMMd().format(userTransactions[txID].date),
         ),
-        trailing: IconButton(
-          icon: const Icon(Icons.delete_outline_outlined),
-          color: Theme.of(context).errorColor,
-          onPressed: () => deleteTx(userTransactions[txID].id),
-        ),
+        trailing: MediaQuery.of(context).size.width > 460
+            ?
+            ElevatedButton.icon(
+                icon: const Icon(Icons.delete_outline_outlined),
+                label: const Text('Delete tx'),
+                onPressed: () => deleteTx(userTransactions[txID].id),
+              )
+            : IconButton(
+                icon: const Icon(Icons.delete_outline_outlined),
+                color: Theme.of(context).errorColor,
+                onPressed: () => deleteTx(userTransactions[txID].id),
+              ),
       ),
     );
   }
