@@ -16,20 +16,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Peronal Expenses',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        fontFamily: 'Quicks',
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-      home: const MyHomePage(),
-    );
+    return Platform.isIOS
+        ? const CupertinoApp(
+            home: Center(
+              child: MyHomePage(),
+            ),
+            debugShowCheckedModeBanner: false,
+          )
+        : MaterialApp(
+            title: 'Peronal Expenses',
+            theme: ThemeData(
+              primarySwatch: Colors.green,
+              fontFamily: 'Quicks',
+              appBarTheme: const AppBarTheme(
+                titleTextStyle: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            home: const MyHomePage(),
+          );
   }
 }
 
