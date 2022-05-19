@@ -18,9 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? const CupertinoApp(
-            home: Center(
-              child: MyHomePage(),
-            ),
+            home: MyHomePage(),
             debugShowCheckedModeBanner: false,
           )
         : MaterialApp(
@@ -169,37 +167,41 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscapeMode = mediaQuery.orientation == Orientation.landscape;
-    final appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: const Text('Personal Expenses'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                GestureDetector(
-                    onTap: () => _startAddNewTransaction(context),
-                    child: const Icon(
-                      CupertinoIcons.add_circled_solid,
-                      size: 30,
-                      color: Colors.green,
-                    )),
-              ],
-            ),
-          )
-        : AppBar(
-            title: const Text('Personal Expenses'),
-            backgroundColor: Colors.lightGreen,
-            actions: <Widget>[
-              IconButton(
-                  onPressed: () => _startAddNewTransaction(context),
-                  icon: const Icon(
-                    Icons.add,
-                    size: 30,
-                    color: Colors.white,
-                  ))
+    final appBar;
+    if (Platform.isIOS) {
+      appBar = CupertinoNavigationBar(
+        middle: const Text('Personal Expenses'),
+        trailing: Builder(builder: (context) {
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () => _startAddNewTransaction(context),
+                child: const Icon(
+                  CupertinoIcons.add_circled_solid,
+                  size: 30,
+                  color: Colors.green,
+                ),
+              ),
             ],
-          ) as ObstructingPreferredSizeWidget;
+          );
+        }),
+      );
+    } else {
+      appBar = AppBar(
+        title: const Text('Personal Expenses'),
+        backgroundColor: Colors.lightGreen,
+        actions: <Widget>[
+          IconButton(
+              onPressed: () => _startAddNewTransaction(context),
+              icon: const Icon(
+                Icons.add,
+                size: 30,
+                color: Colors.white,
+              ))
+        ],
+      );
+    }
 
     final txListWidget = SizedBox(
       height: (mediaQuery.size.height -
@@ -255,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Platform.isIOS
         ? CupertinoPageScaffold(
-            navigationBar: appBar,
+            navigationBar: appBar as ObstructingPreferredSizeWidget,
             child: appBody,
           )
         : Scaffold(
