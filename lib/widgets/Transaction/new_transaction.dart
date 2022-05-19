@@ -19,7 +19,7 @@ class _NewTransactionState extends State<NewTransaction> {
     if (_titleController.text.isEmpty) {
       return;
     }
-    
+
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
 
@@ -49,62 +49,66 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+            left: 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                ),
+                onSubmitted: (_) => _submitData(),
               ),
-              onSubmitted: (_) => _submitData(),
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              controller: _amountController,
-              decoration: const InputDecoration(
-                labelText: 'Amount',
+              TextField(
+                keyboardType: TextInputType.number,
+                controller: _amountController,
+                decoration: const InputDecoration(
+                  labelText: 'Amount',
+                ),
+                onSubmitted: (_) => _submitData(),
               ),
-              onSubmitted: (_) => _submitData(),
-            ),
-            SizedBox(
-              height: 50,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'Picked date: ${DateFormat.yMd().format(_selectedDate)}',
+              SizedBox(
+                height: 50,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        'Picked date: ${DateFormat.yMd().format(_selectedDate)}',
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () => _presenrDatePicker(),
-                    child: Row(
-                      children: const <Widget>[
-                        Text('Change date'),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Icon(Icons.calendar_month),
-                      ],
+                    TextButton(
+                      onPressed: () => _presenrDatePicker(),
+                      child: Row(
+                        children: const <Widget>[
+                          Text('Change date'),
+                          SizedBox(
+                            width: 4,
+                          ),
+                          Icon(Icons.calendar_month),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: ElevatedButton(
+              ElevatedButton(
                 onPressed: _submitData,
                 style: TextButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 14),
                 ),
                 child: const Text('Add Transaction'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
