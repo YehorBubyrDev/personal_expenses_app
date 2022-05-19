@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:personal_expenses_app/widgets/Adaptive/adaptive_flatt_button.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addNewTx;
@@ -103,18 +104,10 @@ class _NewTransactionState extends State<NewTransaction> {
                   ],
                 ),
               ),
-              Platform.isIOS
-                  ? CupertinoButton.filled(
-                      onPressed: _submitData,
-                      child: const Text('Add Transaction'),
-                    )
-                  : ElevatedButton(
-                      onPressed: _submitData,
-                      style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 14),
-                      ),
-                      child: const Text('Add Transaction'),
-                    ),
+              AdaptiveFlatButton(
+                title: 'Add tx',
+                submitData: _submitData,
+              ),
             ],
           ),
         ),
