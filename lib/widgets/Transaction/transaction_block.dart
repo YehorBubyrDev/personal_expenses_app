@@ -16,6 +16,7 @@ class TransactionBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Card(
       elevation: 5,
       margin: const EdgeInsets.symmetric(
@@ -46,7 +47,7 @@ class TransactionBlock extends StatelessWidget {
         subtitle: Text(
           DateFormat.yMMMd().format(userTransactions[txID].date),
         ),
-        trailing: MediaQuery.of(context).size.width > 460
+        trailing: mediaQuery.size.width > 460
             ?
             ElevatedButton.icon(
                 icon: const Icon(Icons.delete_outline_outlined),
