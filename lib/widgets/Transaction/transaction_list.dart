@@ -13,6 +13,7 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Build TxList');
     return userTransactions.isEmpty
         ? const Empty()
         : Container(

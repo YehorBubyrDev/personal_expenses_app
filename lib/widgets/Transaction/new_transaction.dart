@@ -19,7 +19,9 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate = DateTime.now();
 
   void _submitData() {
+    print('0');
     if (_titleController.text.isEmpty) {
+      print('1');
       return;
     }
 
@@ -27,8 +29,11 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredAmount = double.parse(_amountController.text);
 
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
+      print('2');
       return;
     }
+
+    print('3');
 
     widget.addNewTx(enteredTitle, enteredAmount, _selectedDate);
     Navigator.of(context).pop();
@@ -52,6 +57,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    print('Build NewTx');
     final mediaQuery = MediaQuery.of(context);
     return SingleChildScrollView(
       child: Card(
@@ -104,9 +110,12 @@ class _NewTransactionState extends State<NewTransaction> {
                   ],
                 ),
               ),
-              AdaptiveFlatButton(
-                title: 'Add tx',
-                submitData: _submitData,
+              ElevatedButton(
+                onPressed: () => _submitData(),
+                style: TextButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 14),
+                ),
+                child: const Text('Add'),
               ),
             ],
           ),

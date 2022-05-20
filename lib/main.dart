@@ -40,80 +40,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: DateTime.now().toString(),
-      title: 'Water',
-      amount: 20.90,
-      date: DateTime.now(),
-    ),
-  ];
+  final List<Transaction> _userTransactions = [];
 
   bool _showChart = false;
 
@@ -158,44 +85,124 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  Widget _buildIOSAppBar() {
+    return CupertinoNavigationBar(
+      middle: const Text('Personal Expenses'),
+      trailing: Builder(builder: (context) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            GestureDetector(
+              onTap: () => _startAddNewTransaction(context),
+              child: const Icon(
+                CupertinoIcons.add_circled_solid,
+                size: 30,
+                color: Colors.green,
+              ),
+            ),
+          ],
+        );
+      }),
+    );
+  }
+
+  Widget _buildAndroidAppBar() {
+    return AppBar(
+      title: const Text('Personal Expenses'),
+      backgroundColor: Colors.lightGreen,
+      actions: <Widget>[
+        IconButton(
+            onPressed: () => _startAddNewTransaction(context),
+            icon: const Icon(
+              Icons.add,
+              size: 30,
+              color: Colors.white,
+            ))
+      ],
+    );
+  }
+
+  Widget _buildLandscapeContent(
+    MediaQueryData mediaQuery,
+    dynamic appBar,
+    Widget txListWidget,
+  ) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const Text('Show chart'),
+        Switch.adaptive(
+          value: _showChart,
+          onChanged: (value) {
+            setState(() {
+              _showChart = value;
+            });
+          },
+        ),
+        _showChart
+            ? SizedBox(
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.7,
+                child: ExpensesChart(_recentTransaction),
+              )
+            : txListWidget,
+      ],
+    );
+  }
+
+  Widget _buildPortraitContent(
+    MediaQueryData mediaQuery,
+    dynamic appBar,
+    Widget txListWidget,
+  ) {
+    return SizedBox(
+      height: (mediaQuery.size.height -
+              appBar.preferredSize.height -
+              mediaQuery.padding.top) *
+          0.3,
+      child: ExpensesChart(_recentTransaction),
+    );
+  }
+
+  Widget _buildContent(
+    bool isLandscapeMode,
+    MediaQueryData mediaQuery,
+    dynamic appBar,
+    Widget txListWidget,
+  ) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        if (isLandscapeMode)
+          _buildLandscapeContent(
+            mediaQuery,
+            appBar,
+            txListWidget,
+          ),
+        if (!isLandscapeMode)
+          _buildPortraitContent(
+            mediaQuery,
+            appBar,
+            txListWidget,
+          ),
+        if (!isLandscapeMode) txListWidget,
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('Build MainApp');
     final mediaQuery = MediaQuery.of(context);
     final isLandscapeMode = mediaQuery.orientation == Orientation.landscape;
-    final appBar;
+    final dynamic appBar;
     if (Platform.isIOS) {
-      appBar = CupertinoNavigationBar(
-        middle: const Text('Personal Expenses'),
-        trailing: Builder(builder: (context) {
-          return Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () => _startAddNewTransaction(context),
-                child: const Icon(
-                  CupertinoIcons.add_circled_solid,
-                  size: 30,
-                  color: Colors.green,
-                ),
-              ),
-            ],
-          );
-        }),
-      );
+      appBar = _buildIOSAppBar();
     } else {
-      appBar = AppBar(
-        title: const Text('Personal Expenses'),
-        backgroundColor: Colors.lightGreen,
-        actions: <Widget>[
-          IconButton(
-              onPressed: () => _startAddNewTransaction(context),
-              icon: const Icon(
-                Icons.add,
-                size: 30,
-                color: Colors.white,
-              ))
-        ],
-      );
+      appBar = _buildAndroidAppBar();
     }
 
     final txListWidget = SizedBox(
@@ -205,48 +212,10 @@ class _MyHomePageState extends State<MyHomePage> {
           0.7,
       child: TransactionList(_userTransactions, _deleteTx),
     );
+
     final appBody = SafeArea(
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            if (isLandscapeMode)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text('Show chart'),
-                  Switch.adaptive(
-                    value: _showChart,
-                    onChanged: (value) {
-                      setState(() {
-                        _showChart = value;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            if (!isLandscapeMode)
-              SizedBox(
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.3,
-                child: ExpensesChart(_recentTransaction),
-              ),
-            if (!isLandscapeMode) txListWidget,
-            if (isLandscapeMode)
-              _showChart
-                  ? SizedBox(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.7,
-                      child: ExpensesChart(_recentTransaction),
-                    )
-                  : txListWidget,
-          ],
-        ),
+        child: _buildContent(isLandscapeMode, mediaQuery, appBar, txListWidget),
       ),
     );
 

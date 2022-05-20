@@ -5,6 +5,7 @@ class Empty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Build EmptyList');
     final mediaQuery = MediaQuery.of(context);
     final curScaleFactor = mediaQuery.textScaleFactor;
     return SizedBox(
