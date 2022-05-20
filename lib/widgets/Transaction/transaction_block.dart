@@ -16,6 +16,7 @@ class TransactionBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Build TxBlock');
     final mediaQuery = MediaQuery.of(context);
     return Card(
       elevation: 5,
