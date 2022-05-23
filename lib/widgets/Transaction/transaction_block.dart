@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:personal_expenses_app/models/transaction.dart';
 
-class TransactionBlock extends StatelessWidget {
+class TransactionBlock extends StatefulWidget {
   final List<Transaction> userTransactions;
-  final int txID;
+  final dynamic txID;
   final Function deleteTx;
 
   const TransactionBlock(
@@ -13,6 +15,29 @@ class TransactionBlock extends StatelessWidget {
     this.deleteTx, {
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<TransactionBlock> createState() => _TransactionBlockState();
+}
+
+class _TransactionBlockState extends State<TransactionBlock> {
+  var _bgColor;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    const availableColors = [
+      Colors.red,
+      Colors.green,
+      Colors.blue,
+      Colors.yellow,
+      Colors.orange,
+      Colors.pink,
+    ];
+
+    _bgColor = availableColors[Random().nextInt(6)];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +51,13 @@ class TransactionBlock extends StatelessWidget {
       ),
       child: ListTile(
         leading: CircleAvatar(
+          backgroundColor: _bgColor,
           radius: 30,
           child: Padding(
             padding: const EdgeInsets.all(6),
             child: FittedBox(
               child: Text(
-                '\₴${userTransactions[txID].amount}',
+                '\₴${widget.userTransactions[widget.txID].amount}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -40,25 +66,26 @@ class TransactionBlock extends StatelessWidget {
           ),
         ),
         title: Text(
-          userTransactions[txID].title,
+          widget.userTransactions[widget.txID].title,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
         subtitle: Text(
-          DateFormat.yMMMd().format(userTransactions[txID].date),
+          DateFormat.yMMMd().format(widget.userTransactions[widget.txID].date),
         ),
         trailing: mediaQuery.size.width > 460
-            ?
-            ElevatedButton.icon(
+            ? ElevatedButton.icon(
                 icon: const Icon(Icons.delete_outline_outlined),
                 label: const Text('Delete tx'),
-                onPressed: () => deleteTx(userTransactions[txID].id),
+                onPressed: () =>
+                    widget.deleteTx(widget.userTransactions[widget.txID].id),
               )
             : IconButton(
                 icon: const Icon(Icons.delete_outline_outlined),
                 color: Theme.of(context).errorColor,
-                onPressed: () => deleteTx(userTransactions[txID].id),
+                onPressed: () =>
+                    widget.deleteTx(widget.userTransactions[widget.txID].id),
               ),
       ),
     );
