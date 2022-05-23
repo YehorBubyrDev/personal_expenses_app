@@ -18,11 +18,18 @@ class TransactionList extends StatelessWidget {
         ? const Empty()
         : Container(
             color: Colors.black12,
-            child: ListView.builder(
-              itemBuilder: (ctx, index) {
-                return TransactionBlock(userTransactions, index, deleteTx);
-              },
-              itemCount: userTransactions.length,
+            child: ListView(
+              children: [
+                ...userTransactions.asMap().entries.map((tx) {
+                  int idx = tx.key;
+                  return TransactionBlock(
+                    userTransactions,
+                    idx,
+                    deleteTx,
+                    key: ValueKey(tx.value.id),
+                  );
+                })
+              ],
             ),
           );
   }
